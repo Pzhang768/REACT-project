@@ -21,3 +21,7 @@ const App = () => {
 }
 
 export default App
+
+{
+  //import two pages Hero and Demo
+}
