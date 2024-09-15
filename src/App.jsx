@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Hero from './componenets/Hero';
-import Demo from './componenets/Demo';
+import Hero from './components/Hero';
+import Demo from './components/Demo';
 
 import './App.css'
 
@@ -10,6 +10,11 @@ const App = () => {
     <main>
       <div classname="main">
         <div classname="gradient"></div>
+      </div>
+        
+      <div className ="app">
+        <Hero />
+        <Demo />
       </div>
     </main>
   )
