@@ -21,7 +21,7 @@ const Hero = () => {
         </nav>
 
         <h1 className ='head_text'>
-            Suumaruze with <br
+            Summarize with <br
             className='max-md:hidden'/>
             <span className='orange_gradient'>OpenAI 
                 GPT-4</span>
