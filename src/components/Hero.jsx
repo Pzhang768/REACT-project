@@ -1,4 +1,4 @@
-import {logo} from '../assets';
+import {logo} from '../../public/assets';
 
 import React from 'react'
 
@@ -8,16 +8,7 @@ const Hero = () => {
     justify-center items-center flex-col">
         <nav className='flex justify-between
         items-center w-full mb-10 pt-3 flex-row'>
-            <img src={logo} alt="sumz_logo"
-            className="w-28"/>
         
-        <button
-            type="button"
-            onClick={()=>window.open('https://github.com/Pzhang768/AI_wonder')}
-            className="black_btn"
-        >
-            Github
-        </button>
         </nav>
 
         <h1 className ='head_text'>
