@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "jsx": "react", // or "react-jsx" for React 17+
+        "target": "ES6",                          // Specify ECMAScript target version
+        "module": "CommonJS",                     // Specify module code generation
+        "strict": true,                           // Enable all strict type-checking options
+        "esModuleInterop": true,                  // Enable interoperability between CommonJS and ES modules
+        "skipLibCheck": true,                     // Skip type checking of declaration files
+        "forceConsistentCasingInFileNames": true, // Enforce consistent casing in file names
+        "outDir": "./dist",                       // Redirect output structure to this directory
+        "rootDir": "./src",                       // Specify the root directory of input files
+        "resolveJsonModule": true,                // Allow importing .json files
+        "noImplicitAny": true,                    // Raise error on expressions and declarations with an implied `any` type
+        "strictNullChecks": true,                 // Enable strict null checks
+        "moduleResolution": "node",              // Use Node.js module resolution
+        "baseUrl": ".",                           // Base directory for non-relative module names
+        "paths": {                                // Path mapping
+            "@/*": ["src/*"]
+        },
+        "lib": ["ES6", "DOM"],                    // Specify library files to be included
+    
+        // Shadcn
+        "baseUrl": ".",
+        "paths": {
+        "@/*": ["./src/*"]
+    }
+    
+    },
+    "include": ["src/**/*"],                    // Specify an array of files and/or directories to include
+    "exclude": ["node_modules", "dist"]         // Specify an array of files and/or directories to exclude
+  }
+  
