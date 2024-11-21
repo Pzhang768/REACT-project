@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Hero from './components/Hero';
 import Demo from './components/Demo';
 import Nav from './components/Nav';
@@ -11,18 +11,20 @@ const App = () => {
   const [theme, settheme] = useState('light')
 
   return (
+  
+
     <main>
-      <div className='main'>
-        <div className='gradient'/>
-      </div>
+      <Routes>
+        {/* public routes */}
+      <Route path = "/sign-in" element={<SigninForm />} />
       
-      <div className='app'>
-        <Nav theme={theme} setTheme={settheme}/>
-        <Hero/>
-        <Demo/>
-      </div>
+      <Route element={<Hero />} />
+
+      {/* private routes */}
+      <Route index element={<Home />} />
+
+      </Routes>
     </main>
-    
   )
 }
 
