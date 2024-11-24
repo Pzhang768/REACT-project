@@ -14,13 +14,13 @@ export async function createUserAccount(user: INewUser){
         if(!newAccount) throw Error; 
 
         const avatarUrl = avatars.getInitials(user.name);
-
+        const actualURL = new URL(avatarUrl);
         const newUser = await saveUserToDB({
             accountId: newAccount.$id,
             email: newAccount.email,
             name: newAccount.name,
             username: user.username,
-            imageUrl: avatarUrl
+            imageUrl: actualURL,
         })
 
         return newUser;
@@ -31,11 +31,11 @@ export async function createUserAccount(user: INewUser){
 }
 
 export async function saveUserToDB(user : {
-    accountId: string,
-    email: string,
-    name: string,
-    imageUrl: URL,
-    username?: string
+    accountId: string;
+    email: string;
+    name: string;
+    imageUrl: URL;
+    username?: string;
 }) {
     try {
         const newUser = await databases.createDocument(
@@ -43,8 +43,18 @@ export async function saveUserToDB(user : {
             appwriteConfig.userCollectionId,
             ID.unique(),
             user,
-
         )
+        return newUser
+    } catch (error){
+        console.log(error);
+    }
+}
+
+export async function signInAccount(user: { email:string; password: string;
+}){
+    try {
+        const session = await account.createEmailPasswordSession(user.email, user.password);
+        return session;
     } catch (error){
         console.log(error);
     }

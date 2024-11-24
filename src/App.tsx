@@ -11,13 +11,13 @@ import SignupForm from './_auth/_forms/SignupForm';
 import AuthLayout from './_auth/AuthLayout';
 import RootLayout from './_root/RootLayout';
 import { Home } from './_root/pages';
+import { Toaster } from './components/ui/toaster';
 
 const App = () => {
 
   const [theme, settheme] = useState('light')
 
   return (
-  
 
     <main>
       <Routes>
@@ -32,8 +32,9 @@ const App = () => {
       <Route element={<RootLayout />}>
         <Route index element={<Home />} />
       </Route>
-
       </Routes>
+      
+      <Toaster />
     </main>
   )
 }
