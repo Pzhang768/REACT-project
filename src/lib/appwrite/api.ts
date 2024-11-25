@@ -11,7 +11,7 @@ export async function createUserAccount(user: INewUser){
             user.password,
             user.name
         )
-        if(!newAccount) throw Error; 
+        if(!newAccount) throw Error;
 
         const avatarUrl = avatars.getInitials(user.name);
         const actualURL = new URL(avatarUrl);
@@ -81,14 +81,14 @@ export const deleteSessions = async (): Promise<void> => {
     try {
       // Get the list of all sessions
       const sessions = await account.listSessions();
-  
+
       // Delete each session
       await Promise.all(
         sessions.sessions.map(async (session) => {
           await account.deleteSession(session.$id);
         })
       );
-  
+
       console.log('All sessions deleted successfully');
     } catch (error: any) {
       console.error('Error deleting sessions:', error.message);
@@ -97,19 +97,27 @@ export const deleteSessions = async (): Promise<void> => {
 };
 
 export async function getCurrentUser() {
-    try {
-        const currentAccount = await account.get();
-        if(!currentAccount) throw Error;
-        const currentUser = await databases.listDocuments(
-            appwriteConfig.databaseId,
-            appwriteConfig.userCollectionId,
-            [Query.equal('accountId', currentAccount.$id)]
-        )
-        
-        if (!currentUser) throw Error;
+	try {
+		const currentAccount = await account.get();
+		if(!currentAccount) throw Error;
+		const currentUser = await databases.listDocuments(
+				appwriteConfig.databaseId,
+				appwriteConfig.userCollectionId,
+				[Query.equal('accountId', currentAccount.$id)]
+		)
 
-        return currentUser.documents[0]
-    } catch (error){
-        console.log(error);
-    }
+		if (!currentUser) throw Error;
+		return currentUser.documents[0]
+	} catch (error){
+		console.log(error);
+	}
+}
+
+export async function signOutAccount(){
+	try {
+		const session = await account.deleteSession("current")
+		return session;
+	} catch (error) {
+		console.log(error);
+	}
 }
