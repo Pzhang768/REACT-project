@@ -36,7 +36,6 @@ const Topbar = () => {
               </Link>
             </div>
         </div>
-
     </section>
   )
 }
