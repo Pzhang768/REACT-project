@@ -14,6 +14,7 @@ const LeftSidebar = () => {
   useEffect(() => {
     if (isSuccess) navigate(0);
   }, [isSuccess])
+  
   return (
     <nav className="leftsidebar">
       <div className="flex flex-col gap-11">
@@ -67,14 +68,15 @@ const LeftSidebar = () => {
           })}
         </ul>
       </div>
-
-      <Button 
-      variant='ghost' 
-      className='shad-button_ghost'  
-      onClick={() => signOut()}>
-        <img src='/assets/icons/logout.svg' alt='logout'/>
-        <p className="small-medium lg:base-medium">Logout</p>
-      </Button>
+      <div className="h-screen">
+        <Button 
+        variant='ghost' 
+        className='shad-button_ghost'  
+        onClick={() => signOut()}>
+          <img src='/assets/icons/logout.svg' alt='logout'/>
+          <p className="small-medium lg:base-medium">Logout</p>
+        </Button>
+      </div>
   </nav>
   )
 }
