@@ -1,0 +1,6 @@
+.spacer {
+    height: 20vh;
+}
+.container {
+    max-width: 200px; /* Restricts container width */
+}
