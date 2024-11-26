@@ -12,6 +12,8 @@ import AuthLayout from './_auth/AuthLayout';
 import RootLayout from './_root/RootLayout';
 import { Home } from './_root/pages';
 import { Toaster } from './components/ui/toaster';
+import Explore from './_root/pages/Explore';
+import Saved from './_root/pages/Saved';
 
 const App = () => {
 
@@ -21,17 +23,24 @@ const App = () => {
 
     <main>
       <Routes>
-        {/* public routes */}
-      <Route element={<AuthLayout />}>
-        <Route path = "/sign-in" element={<SigninForm />} />
-        <Route path = "/sign-up" element={<SignupForm />} />
-        
-      </Route>
+          {/* public routes */}
+        <Route element={<AuthLayout />}>
+          <Route path = "/sign-in" element={<SigninForm />} />
+          <Route path = "/sign-up" element={<SignupForm />} />
+        </Route>
 
-      {/* private routes */}
-      <Route element={<RootLayout />}>
-        <Route index element={<Home />} />
-      </Route>
+        {/* private routes */}
+        <Route element={<RootLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/saved" element={<Saved />} />
+          <Route path="/all-users" element={<AllUsers />} />
+          <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:id" element={<EditPost />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/profile/:id/*" element={<Profile />} />
+          <Route path="/update-profile/:id" element={<UpdateProfile />} />
+        </Route>
       </Routes>
       
       <Toaster />
