@@ -8,25 +8,41 @@ import { Form, FormControl, FormField, FormItem, FormDescription,
          FormLabel, FormMessage, Button, Input, 
          Textarea} from "@/components/ui"
 import FileUploader from '../shared/FileUploader';
+import { PostValiadation } from '@/lib/validation';
+import { useUserContext } from '@/context/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
+type PostFormProps = {
+  post?: Models.Document;
+}
 
-
-const formSchema = z.object({
-  caption: z.string().min(2).max(50),
-})
-
-const PostForm = ({ post }) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+const PostForm = ({ post }: PostFormProps) => {
+  const { mutateAsync: createPost, isPending: isLoadingCreate} = useCreatePost();
+  const { user } = useUserContext()
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const form = useForm<z.infer<typeof PostValiadation>>({
+    resolver: zodResolver(PostValiadation),
     defaultValues: {
-      caption: "",
+      caption: post ? post?.caption: "",
+      file: [],
+      location: post ? post?.location: "",
+      tags: post ? post?.tags.join(','): "",
     },
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof PostValiadation>) {
+    const newPost = await createPost({
+      ...values,
+      userId: user.id
+    })
+
+    if(!newPost){
+      toast({title: 'Please try again'})
+    }
+
+    navigate('/');
   }
 
   return (
@@ -67,7 +83,7 @@ const PostForm = ({ post }) => {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='shad-form_label'>Add Location</FormLabel>
+              <FormLabel className='shad-form_label' {...field}>Add Location</FormLabel>
               <FormControl>
                 <Input type='text' className='shad-input'/>
               </FormControl>
@@ -81,7 +97,7 @@ const PostForm = ({ post }) => {
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='shad-form_label'>
+              <FormLabel className='shad-form_label' {...field}>
                 Add Tags (separated by comma " , ")
               </FormLabel>
               <FormControl>
