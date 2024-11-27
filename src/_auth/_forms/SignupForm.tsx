@@ -1,15 +1,14 @@
 import React from 'react'
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from '@/components/ui/button'
 import { useToast } from "@/hooks/use-toast"
 import { useForm } from 'react-hook-form'
-import { Form, FormControl,FormDescription,FormField,FormItem,FormLabel,FormMessage,} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { Form, FormControl, FormField, FormItem, 
+         FormLabel, FormMessage, Button, Input } from "@/components/ui"
+
 import { SignupValiadation } from '@/lib/validation'
 import Loader from '@/components/shared/Loader'
 import { Link, useNavigate } from 'react-router-dom'
-import { createUserAccount } from '@/lib/appwrite/api'
 import { useCreateUserAccount, useSignInAccount } from '@/lib/react-query/queriesAndMutations'
 import { useUserContext} from "@/context/AuthContext" 
 
