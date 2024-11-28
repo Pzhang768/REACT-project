@@ -130,7 +130,6 @@ export async function createPost(post: INewPost) {
         await deleteFile(uploadedFile.$id);
         throw Error;
       }
-      console.log("2")
       const tags = post.tags?.replace(/ /g, "").split(",") || [];
 
       const newPost = await databases.createDocument(
@@ -146,7 +145,6 @@ export async function createPost(post: INewPost) {
           tags: tags
         }
       )
-      console.log("3")
       if (!newPost) {
         await deleteFile(uploadedFile.$id)
         throw Error;
@@ -167,7 +165,6 @@ export async function uploadFile(file: File) {
         Permission.update(Role.any()),            
     ]
     );
-    console.log("asd")
     return uploadedFile;
   } catch (error) {
     console.log(error);
@@ -255,6 +252,23 @@ export async function deleteSavedPost(savedRecordId: string) {
     );
     if (!statusCode) throw Error;
     return { status: "Ok" };
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function getPostById(postId?: string) {
+  if (!postId) throw Error;
+
+  try {
+    const post = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId
+    );
+
+    if (!post) throw Error;
+
+    return post;
   } catch (error) {
     console.log(error);
   }

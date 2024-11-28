@@ -14,10 +14,11 @@ import { useToast } from '@/hooks/use-toast';
 import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
 
 type PostFormProps = {
-  post?: Models.Document;
+  post?: Models.Document,
+  action: 'Create' | 'Update';
 };
 
-const PostForm = ({ post }: PostFormProps) => {
+const PostForm = ({ post, action }: PostFormProps) => {
   const { mutateAsync: createPost, isPending: isLoadingCreate} = useCreatePost();
   const navigate = useNavigate();
   const { toast } = useToast();
