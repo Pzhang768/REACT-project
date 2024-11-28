@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "jsx": "react", // or "react-jsx" for React 17+
-        "target": "ES6",                          // Specify ECMAScript target version
+        "target": "es2016",                          // Specify ECMAScript target version
         "module": "es2020",                     // Specify module code generation
         "strict": true,                           // Enable all strict type-checking options
         "esModuleInterop": true,                  // Enable interoperability between CommonJS and ES modules
@@ -13,7 +13,7 @@
         "noImplicitAny": true,                    // Raise error on expressions and declarations with an implied `any` type
         "strictNullChecks": true,                 // Enable strict null checks
         "moduleResolution": "node",              // Use Node.js module resolution
-        "lib": ["ES6", "DOM"],                    // Specify library files to be included
+        "lib": ["es2016", "dom"],                    // Specify library files to be included
     
         // Shadcn
         "baseUrl": ".",
