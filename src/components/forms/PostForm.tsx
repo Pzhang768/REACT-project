@@ -8,38 +8,38 @@ import { Form, FormControl, FormField, FormItem, FormDescription,
          FormLabel, FormMessage, Button, Input, 
          Textarea} from "@/components/ui"
 import FileUploader from '../shared/FileUploader';
-import { PostValiadation } from '@/lib/validation';
+import { PostValidation } from '@/lib/validation';
 import { useUserContext } from '@/context/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
+
 type PostFormProps = {
   post?: Models.Document;
-}
+};
 
 const PostForm = ({ post }: PostFormProps) => {
   const { mutateAsync: createPost, isPending: isLoadingCreate} = useCreatePost();
-  const { user } = useUserContext()
-  const { toast } = useToast();
   const navigate = useNavigate();
-  const form = useForm<z.infer<typeof PostValiadation>>({
-    resolver: zodResolver(PostValiadation),
+  const { toast } = useToast();
+  const { user } = useUserContext();
+  const form = useForm<z.infer<typeof PostValidation>>({
+    resolver: zodResolver(PostValidation),
     defaultValues: {
-      caption: post ? post?.caption: "",
+      caption: post ? post?.caption : "",
       file: [],
-      location: post ? post?.location: "",
-      tags: post ? post?.tags.join(','): "",
+      location: post ? post.location : "",
+      tags: post ? post.tags.join(",") : "",
     },
-  })
+  });
  
-  // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof PostValiadation>) {
+  async function onSubmit(values: z.infer<typeof PostValidation>) {
     const newPost = await createPost({
       ...values,
       userId: user.id
     })
 
     if(!newPost){
-      toast({title: 'Please try again'})
+      toast({title: 'Please try again later'})
     }
 
     navigate('/');
@@ -47,17 +47,22 @@ const PostForm = ({ post }: PostFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-9 w-full max-w-5xl">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-9 w-full  max-w-5xl">
         <FormField
           control={form.control}
           name="caption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='shad-form_label'>Caption</FormLabel>
+              <FormLabel className="shad-form_label">Caption</FormLabel>
               <FormControl>
-                <Textarea className='shad-textarea custom-scrollbar' {...field} />
+                <Textarea
+                  className="shad-textarea custom-scrollbar"
+                  {...field}
+                />
               </FormControl>
-              <FormMessage className="shad-form_message"/>
+              <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />
@@ -83,11 +88,11 @@ const PostForm = ({ post }: PostFormProps) => {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='shad-form_label' {...field}>Add Location</FormLabel>
+              <FormLabel className="shad-form_label">Add Location</FormLabel>
               <FormControl>
-                <Input type='text' className='shad-input'/>
+                <Input type="text" className="shad-input" {...field} />
               </FormControl>
-              <FormMessage className="shad-form_message"/>
+              <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />
@@ -97,16 +102,18 @@ const PostForm = ({ post }: PostFormProps) => {
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='shad-form_label' {...field}>
+              <FormLabel className="shad-form_label">
                 Add Tags (separated by comma " , ")
               </FormLabel>
               <FormControl>
-                <Input 
-                  type='text' 
-                  className='shad-input'
-                  placeholder='JS, React, NextJS'/>
+                <Input
+                  placeholder="Art, Expression, Learn"
+                  type="text"
+                  className="shad-input"
+                  {...field}
+                />
               </FormControl>
-              <FormMessage className="shad-form_message"/>
+              <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />

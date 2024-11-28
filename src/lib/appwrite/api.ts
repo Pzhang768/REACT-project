@@ -1,4 +1,4 @@
-import { ID, ImageGravity, Query } from 'appwrite'
+import { ID, ImageGravity, Permission, Query, Role } from 'appwrite'
 
 import { INewPost, INewUser } from "@/types";
 import { account, appwriteConfig, avatars, databases, storage } from './config';
@@ -124,16 +124,14 @@ export async function signOutAccount(){
 export async function createPost(post: INewPost) {
     try {
       const uploadedFile = await uploadFile(post.file[0]);
-      
       if(!uploadedFile) throw Error;
-
       const fileUrl = getFilePreview(uploadedFile.$id);
-      if(!fileUrl){
-        deleteFile(uploadedFile.$id)
-        throw Error
+      if (!fileUrl) {
+        await deleteFile(uploadedFile.$id);
+        throw Error;
       }
-
-      const tags = post.tags?.replace(/ /g,'').split(',') || [];
+      console.log("2")
+      const tags = post.tags?.replace(/ /g, "").split(",") || [];
 
       const newPost = await databases.createDocument(
         appwriteConfig.databaseId,
@@ -148,6 +146,7 @@ export async function createPost(post: INewPost) {
           tags: tags
         }
       )
+      console.log("3")
       if (!newPost) {
         await deleteFile(uploadedFile.$id)
         throw Error;
@@ -158,16 +157,20 @@ export async function createPost(post: INewPost) {
     }
 }
 
-export async function uploadFile(file: File){
+export async function uploadFile(file: File) {
   try {
     const uploadedFile = await storage.createFile(
       appwriteConfig.storageId,
       ID.unique(),
-      file
+      file,
+      [
+        Permission.update(Role.any()),            
+    ]
     );
-    return uploadedFile
+    console.log("asd")
+    return uploadedFile;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
