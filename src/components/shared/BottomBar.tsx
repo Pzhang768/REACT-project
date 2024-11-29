@@ -3,7 +3,7 @@ import React from 'react'
 import { Link, useLocation} from 'react-router-dom'
 
 
-const BottomBar = () => {
+const Bottombar = () => {
   const { pathname } = useLocation();
   return (
     <section className='bottom-bar'>
@@ -29,4 +29,4 @@ const BottomBar = () => {
   )
 }
 
-export default BottomBar
+export default Bottombar

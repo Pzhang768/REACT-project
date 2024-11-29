@@ -5,7 +5,7 @@ import { multiFormatDateString } from "@/lib/utils";
 import { useUserContext } from "@/context/AuthContext";
 
 import React from 'react';
-import { PostStats } from "./PostStats";
+import { PostStats } from "@/components/shared";
 
 type PostCardProps = {
   post: Models.Document;

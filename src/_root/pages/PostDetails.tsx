@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { multiFormatDateString } from "@/lib/utils";
 import { useUserContext } from '@/context/AuthContext'
 import { Button } from '@/components/ui'
-import PostStats from '@/components/shared/PostStats'
+import { PostStats } from "@/components/shared";
 
 const PostDetails = () => {
   const { id } = useParams()

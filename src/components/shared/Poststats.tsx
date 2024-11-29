@@ -10,7 +10,7 @@ type PostStatsProps = {
     userId: string;
 }
 
-export const PostStats = ({ post, userId }: PostStatsProps) => {
+const PostStats = ({ post, userId }: PostStatsProps) => {
   const likesList = post?.likes.map((user: Models.Document) => user.$id);
 
   const [likes, setLikes] = useState(likesList);
@@ -57,8 +57,8 @@ export const PostStats = ({ post, userId }: PostStatsProps) => {
       <div className='flex gap-2 mr-5'>
         <img
             src={checkIsLiked(likes, userId) 
-              ? 'assets/icons/liked.svg'
-              : 'assets/icons/like.svg'}
+              ? '/assets/icons/liked.svg'
+              : '/assets/icons/like.svg'}
             alt='like'
             width={20} height = {20}
             onClick={handleLikePost}
@@ -70,10 +70,10 @@ export const PostStats = ({ post, userId }: PostStatsProps) => {
       <div className='flex gap-2'>
       {isSavingPost || isDeletingSaved ? <Loader/> : <img
             src={isSaved
-              ?'assets/icons/saved.svg'
-              :'assets/icons/save.svg'
+              ?'/assets/icons/saved.svg'
+              :'/assets/icons/save.svg'
             }
-            alt='like'
+            alt='save'
             width={20} height = {20}
             onClick={handleSavePost}
             className='cursor-pointer'
